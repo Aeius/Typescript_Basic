@@ -76,3 +76,99 @@ class Person {
       this.name = name;
     }
   }
+
+// -----------------------------------------
+
+let 제목 = document.querySelector('#title')
+
+
+// 방법 1
+if(제목 != null){
+    제목.innerHTML ='반가워요'
+}
+
+// 방법2
+if(제목 instanceof Element){
+    제목.innerHTML = "반가워요"
+}
+
+// 방법3
+if(제목?.innerHTML){
+    제목.innerHTML = "반가워요"
+}
+
+// 방법4
+let 글자: string  = '안녕하세요'
+
+if(typeof 제목 === "string") {
+	글자 = '반가워요'
+}
+
+let 링크 = document.querySelector('.link')
+if (링크 instanceof HTMLAnchorElement){
+    링크.href = 'https://kakao.com'
+}
+
+let 버튼 = document.querySelector('#button')
+버튼?.addEventListener('click', function(){
+
+})
+
+type Score = "A" | "B" | "C"
+
+interface User {
+    name: string;
+    age: number;
+    gender?: string;  // 옵션으로설정(있어도그만 없어도그만)
+    readonly birth: number;  // 읽기전용
+    //[grade: number] : string; // key: number = value: stinrg
+    [grade: number] : Score; // key: number = value: stinrg
+}
+
+let user : User = {
+    name : '홍길동',
+    age : 30,
+    birth : 1990,
+    1: "A",
+    2: "B",
+    // 3: "F", 오류발생!
+}
+
+user.age = 10
+user.gender = 'male'
+//user.birth = 1999  오류 발생!
+
+interface Func1{
+	(num1: number, num2:number) : number;
+    // (파라미터 : 타입) : return타입
+}
+
+const add : Func1 = function(x, y) {
+	return x + y
+}
+
+interface IsAdult {
+    (age:number):boolean;
+}
+
+const people : IsAdult = (age)=>{
+    return age > 19
+}
+
+interface Car {
+    color: string;
+    wheels: number;
+    start(): void;
+}
+
+class Bmw implements Car {
+    color;
+    wheels = 4;
+    constructor (c:string){
+        this.color = c
+    }
+    start(): void {
+        console.log('gogogo')
+    }
+}
+const newCar = new Bmw('green')
