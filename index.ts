@@ -45,6 +45,15 @@ function 함수명(x :number | string) {
     } 
 }
 
+// 함수의 매개변수 옵션화
+function hello(x?: string): string {
+    return `Hello, ${x || "world"}`;
+}
+
+function hello2(x = "world"): string {
+    return `Hello, ${x}`
+}
+
 // array 자료형에 순서를 포함해서 타입을 지정해줄 경우 tuple 타입 이용
 type Member = [number, boolean];
 let john:Member = [100, false]
