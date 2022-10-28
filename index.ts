@@ -54,6 +54,49 @@ function hello2(x = "world"): string {
     return `Hello, ${x}`
 }
 
+
+// callback함수 선언 후 이용
+function sum_callback(result, num) {
+    return result + num;
+}
+// 나머지 매개변수 옵션화
+function sum(...nums: number[]) {
+    return nums.reduce((result, num) => result + num, 0);
+    // return nums.reduce(sum_callback);
+}
+
+// bind()함수 사용하여 객체 전달 받을 시 this도 타입을 지정해줘야한다.
+interface sss {
+    name : string;
+}
+const Sam: sss = {name:'Sam'}
+function show(this:sss, age:number, gender:'m' |'f'){
+    console.log(this.name, age, gender)
+}
+const a = show.bind(Sam)
+a(30, 'm') // "Sam", 30, 'm'
+
+// 함수의 return 타입이 여러개일 경우 오버로딩하여 지정해줘야한다.
+interface Info {
+    name: string;
+    age: number;
+}
+function many(name: string, age:string): string; 
+function many(name: string, age:number): Info;
+function many(name: string, age:number | string): Info | string {
+    if (typeof age === "number"){
+        return {
+            name,
+            age
+        };
+    } else {
+        return "나이는 숫자입니다.";
+    }
+}
+const abc : Info = many("aaa", 11);
+const bcd : string = many("bbb", "22");
+
+
 // array 자료형에 순서를 포함해서 타입을 지정해줄 경우 tuple 타입 이용
 type Member = [number, boolean];
 let john:Member = [100, false]
